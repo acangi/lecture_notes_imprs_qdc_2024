@@ -18,7 +18,7 @@ description: >-
 
 # Jupyter notebook settings
 execute:
-  execute_notebooks           : false
+  execute_notebooks           : cache
 
 # TOC settings
 number_toc_chapters           : false
