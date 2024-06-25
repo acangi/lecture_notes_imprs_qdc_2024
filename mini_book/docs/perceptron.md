@@ -9,6 +9,8 @@ kernelspec:
   name: python3
 ---
 
+<a href="https://colab.research.google.com/github/acangi/lecture_notes_imprs_qdc_2024/blob/main/mini_book/docs/notebooks/perceptron.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
 (h1:perceptron)=
 
 # Perceptron
