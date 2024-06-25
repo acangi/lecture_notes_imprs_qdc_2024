@@ -1,0 +1,14 @@
+name: ml4ms
+channels:
+  - default
+dependencies:
+  - python=3.8
+  - sphinx
+  - pip
+  - pandas
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - pip:
+    - quantecon
+    - jupyter-book
