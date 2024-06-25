@@ -7,13 +7,18 @@ logo: 'Logo_small.png'
 description: >-
   Introduction to Machine Learning in Physics.
 
+# Information about where the book exists on the web
+#  url                       : https://github.com/acangi/lecture_notes_imprs_qdc_2024  # Online location of your book
+#  path_to_book              : mini_book  # Optional path to your book, relative to the repository root
+#  branch                    : master  # Which branch of the repository should be used when creating links (optional)
+
 # Notebook interface
-launch_buttons:
-  colab_url: "https://colab.research.google.com/github/acangi/lecture_notes_imprs_qdc_2024/mini_book/docs"
+#launch_buttons:
+#  colab_url: "https://colab.research.google.com/github/acangi/lecture_notes_imprs_qdc_2024/mini_book/docs"
 
 # Jupyter notebook settings
 execute:
-  execute_notebooks           : cache
+  execute_notebooks           : false
 
 # TOC settings
 number_toc_chapters           : false
@@ -40,11 +45,9 @@ latex:
 sphinx:
   config:
     html_theme_options:
-      collapse_navigation: True
       extra_footer: 'Lecture notes for IMPRS for Quantum Dynamics and Control 2024'
-
-# Information about where the book exists on the web
-repository:
-  url                       : https://github.com/acangi/lecture_notes_imprs_qdc_2024  # Online location of your book
-  path_to_book              : mini_book  # Optional path to your book, relative to the repository root
-  branch                    : master  # Which branch of the repository should be used when creating links (optional)
+#      repository_url: https://github.com/acangi/lecture_notes_imprs_qdc_2024 
+#      nb_repository_url: https://github.com/acangi/lecture_notes_imprs_qdc_2024/main/mini_book
+#      launch_buttons:
+#        notebook_interface: classic
+#        colab_url: https://colab.research.google.com
