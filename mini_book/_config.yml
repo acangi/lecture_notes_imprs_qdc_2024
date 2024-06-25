@@ -10,8 +10,8 @@ description: >-
 # Notebook interface
 launch_buttons:
   notebook_interface: "jupyterlab"  # or "classic"
-  colab_url: "https://colab.research.google.com"
-  
+  colab_url: "https://colab.research.google.com/github/acangi/lecture_notes_imprs_qdc_2024/mini_book/docs"
+
 # Jupyter notebook settings
 execute:
   execute_notebooks           : cache
