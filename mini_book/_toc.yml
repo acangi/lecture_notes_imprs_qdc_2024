@@ -1,0 +1,18 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: docs/index
+parts:
+- caption: Welcome
+  numbered: true
+  chapters:
+  - file: docs/about
+- caption: Day 1 - Introduction to Deep Learning
+  numbered: true
+  chapters:
+  - file: docs/perceptron
+- caption: Day 2 - Solving differential equations with neural networks
+  numbered: true
+  chapters:
+  - file: docs/pde_nn

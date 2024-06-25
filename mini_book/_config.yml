@@ -1,0 +1,38 @@
+title: Lecture notes for IMPRS for Quantum Dynamics and Control 2024
+author: Attila Cangi 
+copyright: '2024'
+logo: 'Logo_small.png'
+
+# Short description about the book
+description: >-
+  Introduction to Machine Learning in Physics.
+
+execute:
+  execute_notebooks           : cache
+
+# TOC settings
+number_toc_chapters           : false
+
+# Interact link settings
+notebook_interface            : "notebook"
+
+parse:
+  myst_enable_extensions:
+    # don't forget to list any other extensions you want enabled,
+    # including those that are enabled by default!
+    - amsmath
+    - dollarmath
+
+# LaTeX settings
+bibtex_bibfiles:
+   - _bibliography/references.bib
+latex:
+  latex_engine                : "xelatex"
+  latex_documents:
+    targetname: book.tex
+
+sphinx:
+  config:
+    html_theme_options:
+      collapse_navigation: True
+      extra_footer: 'Lecture notes for IMPRS for Quantum Dynamics and Control 2024'
