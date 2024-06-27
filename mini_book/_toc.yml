@@ -16,4 +16,3 @@ parts:
   numbered: true
   chapters:
   - file: docs/pde_nn
-  - file: docs/02_TD_Schrodinger

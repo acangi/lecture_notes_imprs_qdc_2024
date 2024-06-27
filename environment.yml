@@ -1,14 +1,18 @@
-name: ml4ms
+name: lectures_imprs
 channels:
   - default
 dependencies:
-  - python=3.8
+  - python=3.12
+  - ipykernel
   - sphinx
   - pip
   - pandas
   - matplotlib
   - seaborn
+  - ipywidgets
   - scikit-learn
   - pip:
     - quantecon
     - jupyter-book
+    - torch 
+    - torchvision

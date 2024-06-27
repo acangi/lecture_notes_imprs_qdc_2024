@@ -454,6 +454,8 @@ align: center
 Zur Veranschaulichung des Perzeptron-Modells können die Beispieldatensätze der `scikit-learn`-Bibliothek verwendet werden.
 
 ```{code-cell} ipython3 
+:tags: [hide-cell]
+
 import numpy as np
 import pandas as pd
 import matplotlib
@@ -538,6 +540,8 @@ model2.train(x, y, epochs=20)
 
 Wir veranschaulichen die Fehlerfunktion (oben) und die Genauigkeit (unten) für das Training mit beiden Lernrate.
 ```{code-cell} ipython3
+:tags: [hide-output]
+
 fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(16,12))
 
 ax[0][0].plot(range(1, len(model1.loss)+1), np.log10(model1.loss), marker='o')
