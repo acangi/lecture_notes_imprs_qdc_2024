@@ -1,5 +1,6 @@
 ---
 jupytext:
+  formats: md:myst
   text_representation:
     extension: .md
     format_name: myst
@@ -7,31 +8,36 @@ kernelspec:
   display_name: Python 3
   language: python
   name: python3
+mystnb:
+  execution_mode: 'inline'
 ---
 
 <a href="https://colab.research.google.com/github/acangi/lecture_notes_imprs_qdc_2024/blob/main/mini_book/docs/notebooks/perceptron.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
+```{hint}
+Run the notebook in the colab environment.
+```
 
 (h1:perceptron)=
 
 # Perceptron
 
-## Neuronale Netze
+## Neural Networks
 
-### Biologische Neuronen
-#### Grundlegendes zum Neuron
-Ein **Neuron**, auch Nervenzelle genannt, ist die grundlegende Funktionseinheit des Nervensystems. Neuronen sind spezialisierte Zellen, die Informationen durch elektrische und chemische Signale empfangen, verarbeiten und weiterleiten.
+### Biological Neurons
+#### Basic Facts about Neurons
+A **neuron**, also known as a nerve cell, is the basic functional unit of the nervous system. Neurons are specialized cells that receive, process and transmit information through electrical and chemical signals.
 
-Eine Neuron setzt sich aus drei Hauptteilen zusammen:
+A neuron is made up of three main parts:
 
-* **Zellkörper (Soma)**:
-Enthält den Zellkern und andere Organellen, die für die grundlegenden Zellfunktionen notwendig sind.
+* **Cell body (soma)**:
+Contains the nucleus and other organelles necessary for basic cell functions.
 
-* **Dendriten**:
-Baumartige Fortsätze, die Signale von anderen Nervenzellen empfangen und an den Zellkörper weiterleiten.
+* **Dendrites**:
+Tree-like projections that receive signals from other nerve cells and transmit them to the cell body.
 
 * **Axon**:
-Ein langer, dünner Fortsatz, der elektrische Signale vom Zellkörper weg zu anderen Nervenzellen, Muskeln oder Drüsen leitet. Das Ende des Axons verzweigt sich in Axonendigungen, die Neurotransmitter freisetzen, um Signale zu übertragen.
-
+A long, thin extension that conducts electrical signals away from the cell body to other nerve cells, muscles or glands. The end of the axon branches into axon terminals that release neurotransmitters to transmit signals.
 
 ```{figure} images/Neurons_cerebral_cortex.png
 ---
@@ -39,22 +45,20 @@ width: 400px
 name: Neurons in the cerebral cortex
 align: center
 ---
-Neuronen im zerebralen Kortex
+Neurons in the cerebral cortex
 ```
+#### Anatomy and Function of Neurons
+The function of a neuron can be divided into several steps:
 
-#### Anatomie und Funktion eines Neurons
-Die Funktion eines Neurons lässt sich in mehrere Schritte unterteilen:
+* **Reception of signals**: Dendrites receive chemical signals from neighboring neurons. These signals lead to changes in the membrane potential of the neuron.
 
-* **Empfang von Signalen**: Dendriten empfangen chemische Signale von benachbarten Nervenzellen. Diese Signale führen zu Änderungen des Membranpotentials des Neurons.
+**Generation of an action potential**: When the membrane potential reaches a certain threshold, an action potential is triggered. This is a rapid change in the membrane potential that spreads along the axon.
 
-* **Erzeugung eines Aktionspotentials**: Erreicht das Membranpotential einen bestimmten Schwellenwert, wird ein Aktionspotential ausgelöst. Dabei handelt es sich um eine schnelle Änderung des Membranpotentials, die sich entlang des Axons ausbreitet.
+* **Transmission of the action potential**: The action potential travels along the axon to the axon terminals. This occurs through a series of depolarizations and repolarizations of the cell membrane.
 
-* **Weiterleitung des Aktionspotentials**: Das Aktionspotential wandert entlang des Axons zu den Axonterminalen. Dies geschieht durch eine Reihe von Depolarisationen und Repolarisationen der Zellmembran.
+**Signal transmission**: At the axon terminal, the action potential leads to the release of neurotransmitters into the synaptic gap, the space between the axon terminal of the sending neuron and the dendrites of the receiving neuron. The neurotransmitters bind to receptors on the membrane of the receiving neuron and can trigger a new electrical signal there.
 
-* **Signalübertragung**: Am Axonende führt das Aktionspotential zur Ausschüttung von Neurotransmittern in den synaptischen Spalt, den Raum zwischen dem Axonende der sendenden Nervenzelle und den Dendriten der empfangenden Nervenzelle. Die Neurotransmitter binden an Rezeptoren auf der Membran des empfangenden Neurons und können dort ein neues elektrisches Signal auslösen.
-
-Diese Variabilität der Informationsübertragung spiegelt sich in den Gewichten künstlicher neuronaler Netze wider.
-
+This variability of information transmission is reflected in the weights of artificial neuronal networks.
 
 ```{figure} images/Neuron_anatomy.png
 ---
@@ -62,15 +66,15 @@ width: 600px
 name: Anatomie eines Neurons
 align: center
 ---
-Anatomie eines Neurons
+Anatomy of a neuron
 ```
 
-### Künstliche Neuronen
+### Artificial Neurons
 
-#### Geschichte der Entwicklung künstlicher neuronaler Netze
-* **Frühe Ideen und Inspirationen (1940er Jahre)**:
+#### History and Development of artificial neural networks
+* **Early ideas and inspirations (1940s)**:
 
-  * McCulloch und Pitts (1943): Sie entwickelten das erste mathematische Modell eines Neurons und legten damit den Grundstein für die Theorie neuronaler Netze. Ihr Modell zeigte, dass ein Neuron als einfacher binärer Schalter fungieren kann.
+  * McCulloch and Pitts (1943): They developed the first mathematical model of a neuron, laying the foundation for neural network theory. Their model showed that a neuron can function as a simple binary switch.
   
 ```{figure} images/McCulloch-Pitts-cell.png
 ---
@@ -78,14 +82,14 @@ width: 600px
 name: McCulloch-Pitts Neuron
 align: center
 ---
-McCulloch-Pitts Neuron
+McCulloch-Pitts neuron
 ```
 
-* **Perzeptron-Modell (1950er und 1960er Jahre)**:
+* **Perzeptron Model (1950s and 1960s)**:
+  
+  * Frank Rosenblatt (1958): He invented the perceptron, a simple single-level neural network that could solve linear classification tasks. The perceptron was capable of learning by adapting its weights through a simple learning process.
 
-  * Frank Rosenblatt (1958): Er erfand das Perzeptron, ein einfaches einstufiges neuronales Netz, das lineare Klassifikationsaufgaben lösen konnte. Das Perzeptron war lernfähig, indem es seine Gewichte durch einen einfachen Lernprozess anpasste.
-
-  * Kritik am Perzeptron (1969): Marvin Minsky und Seymour Papert veröffentlichten das Buch "Perceptrons", in dem sie die Grenzen des Perzeptrons aufzeigten, insbesondere seine Unfähigkeit, nichtlineare Probleme wie das XOR-Problem zu lösen. Dies führte zu einem Rückgang des Interesses an neuronalen Netzen.
+  * Criticism of the perceptron (1969): Marvin Minsky and Seymour Papert published the book "Perceptrons" in which they pointed out the limitations of the perceptron, particularly its inability to solve nonlinear problems such as the XOR problem. This led to a decline in interest in neural networks.
 
 ```{figure} images/Perceptron-xor-task.png
 ---
@@ -93,22 +97,22 @@ width: 600px
 name: Perzeptron-Modell
 align: center
 ---
-Perzeptron-Modell
+Perzeptron model
 ```
-* **Wiederaufleben und Entwicklung des Multilayer-Perzeptrons (1980er Jahre):**
+* **Revival and development of the multilayer perceptron (1980s):**
 
-  * Backpropagation-Algorithmus (1986): David Rumelhart, Geoffrey Hinton und Ronald Williams stellten den Backpropagation-Algorithmus vor, mit dem die Gewichte in mehrschichtigen neuronalen Netzen effizient angepasst werden können. Dies löste das Problem der nichtlinearen Klassifikation und eröffnete neue Möglichkeiten für künstliche neuronale Netze.
+  * Backpropagation algorithm (1986): David Rumelhart, Geoffrey Hinton and Ronald Williams introduced the backpropagation algorithm to efficiently adjust the weights in multilayer neural networks. This solved the problem of non-linear classification and opened up new possibilities for artificial neural networks.
 
-## Perzeptron-Modell
+## Perzeptron Model
 
-### Struktur
-Das einfache Perzeptron-Modell besteht aus einer Eingabe- und einer Ausgabeschicht.
+### Structure
+The simple perceptron model consists of an input layer and an output layer.
 
-In der Eingabeschicht wird die Eingabe (bzw. Input) $\vec{x} = (x_1, x_2,\dots, x_n)$.
+In the input layer, the input is $\vec{x} = (x_1, x_2,\dots, x_n)$.
 
-Die Ausgabeschicht besteht aus einem einzigen Neuron. Sie enthält die Netzeingabe (bzw. Netzinput) $z$ und den Ausgabewert (bzw. Output) $y$.
+The output layer consists of a single neuron. It contains the network input $z$ and the output value $y$.
 
-Dieses Netz kann zur binären Klassifikation verwendet werden, d.h. das Netz kann für eine Eingabe entscheiden, ob sie zu einer bestimmten Kategorie gehört. Die Klassifikation wird durch den Ausgabewert $y$ ausgedrückt.
+This network can be used for binary classification, i.e. the network can decide for an input whether it belongs to a certain category. The classification is expressed by the output value $y$.
 
 ```{figure} images/Perceptron.png
 ---
@@ -116,22 +120,23 @@ width: 600px
 name: Perceptron
 align: center
 ---
-Perzeptron
+Perceptron
 ```
 
-### Datenverarbeitung (Forward Propagation)
-Im Folgenden soll mit Hilfe der Vektornotation die Funktionsweise des einfachen Perzeptron-Modells durchgespielt und der Weg vom Input $\vec{x}$ zum Output $y$ nachvollzogen werden. Diese Schritte werden auch Forward Propagation bezeichnet.
+### Forward Propagation
+In the following, the functionality of the simple perceptron model will be demonstrated with the help of vector notation and the path from input $\vec{x}$ to output $y$ will be traced. These steps are also referred to as forward propagation.
 
-Der Input wird als Feature-Vektor $\vec{x} = (x_1, x_2,\dots, x_n)$ dargestellt. Mit anderen Worten
+The input is represented as a feature vector $\vec{x} = (x_1, x_2,\dots, x_n)$. In other words
 \begin{align}
 \vec{x} &=
 \begin{pmatrix}
 x_1\\ \vdots\\ x_n
 \end{pmatrix} ,
 \end{align}
-wobei der Feature-Vektor die Länge $n$ hat und ein Feature $x_i \in \mathbb{R}$.
+where the feature vector has length $n$ und a feature is denoted by $x_i \in \mathbb{R}$.
 
-Die Parameter des Perzeptrons sind die Gewichte $w_i \in \mathbb{R}$. Sie werden ebenso als ein sogenannter Gewichtsvektor dargestellt:
+
+The parameters of the perceptron are the weights $w_i \in \mathbb{R}$. They are represented in terms of a so-called weight vector:
 \begin{align}
 \vec{w} &=
 \begin{pmatrix}
@@ -140,67 +145,67 @@ w_1\\ \vdots\\ w_n
 \end{align}
 
 
-#### Netzinput
-Im ersten Schritt wird aus dem Feature-Vektor $\vec{x}$ der Netzinput $z$ berechnent. Dieser ergibt sich aus der Summe der Werte der Inputneuronen multipliziert mit ihren jeweiligen Gewichten:
+#### Network Input
+In the first step, the network input $z$ is calculated from the feature vector $\vec{x}$. This results from the sum of the values of the input neurons multiplied by their respective weights:
 \begin{align}
 z &= \sum_{i=1}^n w_i x_i = w_1 x_1 + \dots + w_n x_n\ . 
 \end{align}
 
-Dies können wir in kompakter Form in der Vektornotation als Matrizenmultiplikation ausdrücken:
+We can express this in a compact form in vector notation as matrix multiplication:
 \begin{align}
 z &= \vec{w}^T \vec{x}\\
   &= (w_1, \dots, w_n) \begin{pmatrix} x_1\\ \vdots\\ x_n \end{pmatrix}\\
   &= w_1 x_1 + \dots + w_n x_n\,,  
 \end{align}
-wobei $\vec{w}^T$ den transponierten Gewichtsvektor (also einen Zeilenvektor) bezeichnet.
+where $\vec{w}^T$ denotes a transposed weight vector (which is a row vector).
 
-#### Aktivierung und Output
-Im zweiten und finalen Schritt berechnen wir die Aktivierung des Ausgabeneurons, was auch gleichzeitig dem Output des Perzeptron-Modells entspricht.
+#### Activation and Output
+In the second and final step, we calculate the activation of the output neuron, which also corresponds to the output of the perceptron model.
 
-Dabei wird eine Aktivierungsfunktion $g$ auf den Netzinput angewendet:
+An activation function $g$ is applied to the network input:
 \begin{align}
 y &= g(z)\ .
 \end{align}
 
-### Lernen
-Nachdem wir die Propagation von Daten durch das Perzeptron verstanden haben, wollen wir uns dem Lernprozess zuwenden. Unter Lernen eines Perzeptrons verstehen wir die schrittweise Anpassung der Gewichte $\vec{w}$ an die gewünschte Zielfunktion mit Hilfe von **Trainingsdaten**.
+### Learning Process
+Now that we have understood the propagation of data through the perceptron, let us turn our attention to the learning process. In the context of the perceptron model, we understand learning as the gradual adaptation of the weights $\vec{w}$ to the desired target function with the help of **training data**.
 
-#### Trainingsdaten
-Trainingsdaten sind z. B. eine Reihe von Daten mit einem Label (z. B. Bilder mit der kategorischen Zuordnung "Katze" und "Nicht-Katze").  Die Trainingsdaten können daher als Paare von Feature-Vektoren und Labels geschrieben werden:
+#### Training Data
+Training data is, for example, a series of data with a label (e.g. images with the categorical assignment "cat" and "non-cat").  The training data can therefore be written as pairs of feature vectors and labels:
 \begin{align}
 (\vec{x}^k, y^k) ~~~ k \in \{1, \dots, N\}\,,
 \end{align}
-wobei wir hier von $N$ Trainingsdaten ausgehen.
+where we assume that the training data has a dimension $N$.
 
-Bei einem neuronalen Netz müssen wir zwischen dem berechneten Output des aktuellen Netzes $\bar{y}^k \in \{0,1\}$ und dem korrekten Output eines Trainingsbeispiels $y^k \in \{0,1\}$ unterscheiden.
+With a neural network, we must distinguish between the calculated output of the current network $\bar{y}^k \in \{0,1\}$ and the correct output of a training example $y^k \in \{0,1\}$.
 
-#### Lernschritt
-Lernen bedeutet, dass wir für jedes Trainingsbeispiel den Output $\bar{y}$ berechnen und dann die Gewichte anpassen. Dies wird als **Lernschritt** bezeichnet.
 
-Wir können also für die Paare von Feature-Vektoren und Labels $(\vec{x}^k, y^k)$ den Gewichtsvektor $\vec{w}$ in jedem Lernschritt anpassen, indem wir eine Änderung aller Gewichte zum aktuellen Wert addieren:
+#### Learning Step
+Learning means that we calculate the output $\bar{y}$ for each training example and then adjust the weights. This is called a **learning step**.
+
+We can therefore adjust the weight vector $\vec{w}$ for the pairs of feature vectors and labels $(\vec{x}^k, y^k)$ in each learning step by adding a change of all weights to the current value:
 \begin{align}
 w_i := w_i + \Delta w_i\ .
 \end{align}
 
-Wir werden im nächsten Abschnitt eine konkrete Regel für die Anpassung der Gewichte definieren. Zuvor wollen wir uns jedoch mit den Eigenschaften der Wichtungsaktualisierung befassen:
+We will define a concrete rule for adjusting the weights in the next section. Before that, however, let's look at the properties of the weight update:
 
-* Wenn der der berechnete Output $\bar{y}$ größer ist als der Referenzwert $y$, soll die Wichtungsaktualisierung negativ sein, das Gewicht dieses Neurons soll also abgeschwächt werden.
-* Wenn der der berechnete Output $\bar{y}$ kleiner ist als der Referenzwert $y$, soll die Wichtungsaktualisierung positiv sein, d.h. das Gewicht wird verstärkt.
-* Wenn der berechnete Output $\bar{y}$ und der Referenzwert $y$ gleich sind, soll keine Wichtungsaktualisierung erfolgen.
+* If the calculated output $\bar{y}$ is greater than the reference value $y$, the weight update should be negative, i.e. the weight of this neuron should be weakened.
+* If the calculated output $\bar{y}$ is smaller than the reference value $y$, the weight update should be positive, i.e. the weight is increased.
+* If the calculated output $\bar{y}$ and the reference value $y$ are the same, no weighting update should take place.
 
-### Gradientenabstieg
-Im Folgenden soll eine Lernregel hergeleitet werden, die zur Aktualisierung der Gewichte eines Perzeptrons verwendet werden kann.
+### Gradient Descent
+In the following, we will derive a learning rule that can be used to update the weights of a perceptron.
 
-#### Fehlerfunktion
-Um eine geeignete Lernregel abzuleiten, müssen wir zunächst den Begriff der Fehlerfunktion $J$ definieren. Sie ist definiert als
-
+#### Loss Function
+In order to derive a suitable learning rule, we must first define the term loss function $L$. It is defined as
 \begin{align}
-J(w) &= \frac{1}{2N} \sum_{k=1}^N \left[ y^k - \bar{y}^k \right]^2\ . 
+L(w) &= \frac{1}{2N} \sum_{k=1}^N \left[ y^k - \bar{y}^k \right]^2\ . 
 \end{align}
 
-Die Fehlerfunktion ist also als Mittelwert der quadrierten Fehler definiert, was sehr gebräuchlich ist.
+The loss function is therefore defined as the mean value of the squared errors, which is very common.
 
-Wie kann man sich die Fehlerfunktion vorstellen? Sie ist eine mehrdimensionale Funktion der Wichtungen bzw. des Gewichtsvektors $\vec{w}$. Eine intuitive Vorstellung erhält man, wenn man sich die Abbildung ansieht, in der die Fehlerfunktion als Funktion von zwei repräsentativen Gewichten ($w_0$ und $w_1$) dargestellt ist.
+How can you visualize the loss function? It is a multidimensional function of the weights or the weight vector $\vec{w}$. An intuitive idea can be obtained by looking at the figure in which the loss function is represented as a function of two representative weights ($w_0$ and $w_1$).
 
 ```{figure} images/landscape_0.png
 ---
@@ -208,13 +213,13 @@ width: 600px
 name: landscape_0
 align: center
 ---
-Visualisierung einer Fehlerlandschaft
+Parameter landscape of the loss function
 ```
 
-Wir sehen also, dass die Fehlerfunktion hier eine 2-dimensionale (und im Allgemeinen eine mehrdimensionale) Parameterlandschaft aufspannt.
+We can see that the loss function here spans a two-dimensional (and generally a multi-dimensional) parameter landscape.
 
-#### Lernregel: Minimum der Fehlerlandschaft
-Wir können nun anhand der Fehlerfunktion eine Lernregel herleiten, indem wir uns als Ziel setzen den Wert der Fehlerfunktion zu minimieren. Dies bedeutet, dass wir nach Tälern in der Parameterlandschaft suchen.
+#### Learning rule: Minimum of the loss landscape
+We can now use the loss function to derive a learning rule by setting ourselves the goal of minimizing the value of the loss function. This means that we look for valleys in the parameter landscape.
 
 ```{figure} images/landscape_2.png
 ---
@@ -222,51 +227,49 @@ width: 600px
 name: landscape_2
 align: center
 ---
-Visualisierung einer Fehlerlandschaft und des Gradientenabstiegs
+Gradient descent in the parameter landscape of the loss function
 ```
-
-### Wichtungsaktualisierung
-Mit diesem Ziel können wir die Wichtungsaktualisierung $w := w + \Delta w$ ableiten. Dazu nutzen wir den Gradienten der Fehlerlandschaft, der uns über den größten Anstieg der Fehlerlandschaft informiert. Wir nehmen also den negativen Gradienten und erhalten damit unsere Lernregel:
+### Weight Update
+With this goal in mind, we can derive the weight update $w := w + \Delta w$. To do this, we use the gradient of the loss landscape, which informs us about the largest increase in the error landscape. We therefore take the negative gradient and thus obtain our learning rule:
 
 \begin{align}
-\Delta \vec{w} &= -\alpha\, \nabla J(w)\\
-         &= -\alpha\, \begin{pmatrix} \frac{\partial J(w)}{\partial w_1}\\
+\Delta \vec{w} &= -\alpha\, \nabla L(w)\\
+         &= -\alpha\, \begin{pmatrix} \frac{\partial L(w)}{\partial w_1}\\
                             \vdots \\
-                            \frac{\partial J(w)}{\partial w_n}
+                            \frac{\partial L(w)}{\partial w_n}
             \end{pmatrix}\,,
 \end{align}
+where we have also introduced the learning rate $\alpha \in [0,1]$.
+As can be seen in the figure, updating the weights in the direction of the negative gradient causes us to run in the direction of the minimum of the loss landscape.
 
-wobei wir hier auch die Lernrate $\alpha \in [0,1]$ eingeführt haben.
-Wie in der Abbildung zu sehen ist, führt eine Aktualisierung der Gewichte in der Richtung des negativen Gradienten dazu, dass wir in die Richtung des Minimums der Fehlerlandschaft laufen.
+For the learning rule, we now need the partial derivatives of the loss function according to the weights $w_1, \dots, w_n$, which we now calculate.
 
-Für die Lernregel benötigen wir nun die partiellen Ableitungen der Fehlerfunktion nach den Gewichten $w_1, \dots, w_n$, die wir jetzt ausrechnen.
-
-Dazu beginnen wir mit der Definition der Fehlerfunktion und formen sie um, bis wir sie nach den einzelnen Gewichten ableiten können:
+To do this, we start with the definition of the loss function and reshape it until we can derive it according to the individual weights:
 
 \begin{align}
-J(w) &= \frac{1}{2N} \sum_{k=1}^N \left[ y^k - \bar{y}^k \right]^2\ .
+L(w) &= \frac{1}{2N} \sum_{k=1}^N \left[ y^k - \bar{y}^k \right]^2\ .
 \end{align}
 
-Um die Herleitung zu vereinfachen, wählen wir als Aktivierungsfunktion die identische Abbildung $g(z) = z$.
+To simplify the derivation, we choose the identical mapping $g(z) = z$ as the activation function.
 
-Wir setzen sie in die Definition der Fehlerfunktion ein und erhalten
+We insert it into the definition of the loss function and obtain
 \begin{align}
-J(w) &= \frac{1}{2N} \sum_{k=1}^N \left[ y^k - g(z^k) \right]^2\ .
+L(w) &= \frac{1}{2N} \sum_{k=1}^N \left[ y^k - g(z^k) \right]^2\ .
 \end{align}
 
-Wir werten nun die Aktivierungsfunktion aus, damit vereinfacht sich der Ausdruck zu:
+We now evaluate the activation function, which simplifies the expression to:
 \begin{align}
-J(w) &= \frac{1}{2N} \sum_{k=1}^N \left( y^k - z^k \right)^2\ .
+L(w) &= \frac{1}{2N} \sum_{k=1}^N \left( y^k - z^k \right)^2\ .
 \end{align}
 
-Nun setzen wir noch den Ausdruck für den Netz-Input ein:
+Now we insert the expression for the network input:
 \begin{align}
-J(w) &= \frac{1}{2N} \sum_{k=1}^N \left( y^k - \vec{w}^T \vec{x}^k \right)^2\ .
+L(w) &= \frac{1}{2N} \sum_{k=1}^N \left( y^k - \vec{w}^T \vec{x}^k \right)^2\ .
 \end{align}
 
-Nun können wir die Ableitung nach dem Gewicht $w_i$ explizit berechnen:
+Now we can explicitly calculate the derivative with respect to the weight $w_i$:
 \begin{align}
-\frac{\partial J}{\partial w_i}
+\frac{\partial L}{\partial w_i}
 &= \frac{\partial}{\partial w_i} \frac{1}{2N} \sum_{k=1}^N \left( y^k - \vec{w}^T \vec{x}^k \right)^2 \\
 &= \frac{1}{2N} \sum_{k=1}^N \frac{\partial}{\partial w_i} \left( y^k - \vec{w}^T \vec{x}^k \right)^2 \\
 &= \frac{1}{2N} \sum_{k=1}^N  2 \left( y^k - \vec{w}^T \vec{x}^k \right) \frac{\partial}{\partial w_i} \left(y^k - \vec{w}^T \vec{x}^k \right) \\
@@ -275,97 +278,98 @@ Nun können wir die Ableitung nach dem Gewicht $w_i$ explizit berechnen:
 &= -\frac{1}{N} \sum_{k=1}^N \left( y^k - \vec{w}^T \vec{x}^k \right) x^k_i\ .
 \end{align}
 
-Am Ende setzen wir wieder die Definition der Aktivierungsfunktion ein und erhalten:
+At the end we use the definition of the activation function again and obtain:
 \begin{align}
-\frac{\partial J}{\partial w_i}
+\frac{\partial L}{\partial w_i}
 &=-\frac{1}{N} \sum_{k=1}^N \left[ y^k - g(z^k) \right] x^k_i\ .
 \end{align}
 
-Damit erhalten wir als Lernregel für ein spezifisches Gewicht:
+This gives us a learning rule for a specific weight:
 \begin{align}
 \Delta w_i
-&=-\alpha \frac{\partial J(w)}{\partial w_i}\\
+&=-\alpha \frac{\partial L(w)}{\partial w_i}\\
 &=\frac{\alpha}{N} \sum_{k=1}^N \left[ y^k - g(z^k) \right] x^k_i\ .
 \end{align}
 
-Da der Output des Perzeptron $\bar{y}^k=g(z^k)$ ist, erhalten wir somit:
+Since the output of the perceptron is $\bar{y}^k=g(z^k)$, we thus obtain
 \begin{align}
 \Delta w_i
 &=\frac{\alpha}{N} \sum_{k=1}^N \left( y^k - \bar{y}^k \right) x^k_i\ .
 \end{align}
 
-Damit haben wir unsere Lernregel mit Hilfe des Gradientenabstiegs abgeleitet. Wie wir sehen, müssen wir zuerst die Summe über alle Trainingsdaten ($N$ mal) verarbeiten, um unsere Wichtungsaktualisierung für einen Lernschritt zu berechnen.
+Thus, we have derived our learning rule using gradient descent. As we can see, we first need to process the sum over all training data ($N$ times) to calculate our weight update for a learning step.
 
-## Anwendungsbeispiel: Binäre Klassifikation mit dem Perzpetron-Modell
+# Application example: Binary Classification with the Percepetron Model
 
-### Lernalgorithmus
-Mit Hilfe der hergeleiteten Lernregel können wir nun einen Lernalgorithmus formulieren.
+### Learning Algorithm
+With the help of the derived learning rule, we can now formulate a learning algorithm.
 
-1.   Initialisiere alle Gewichte $\vec{w} = (w_0, ..., w_n)$.
-2.   Für jede Epoche:
-     * Setze $\Delta w_i = 0$
-     * Für jeden Satz an Trainingsdaten ($x^k, y^k$), $k=1, \dots, N$:
-       * Berechne Output $y^k$.
-       * Berechne Wichtungsaktualisierung: $\Delta w_i^k = \Delta w_i^k + (y^k-\bar{y}^k)x_i^k$.
-     * Berechne den Mittelwert aller Wichtungsaktualisierung über die Trainingsdaten: $\Delta w_i = \frac{\alpha}{N}\sum_{k=1}^N \Delta w_i^k$
-     * Aktualisiere alle Gewichte $w_i = w_i + \Delta w_i$
+1. initialize all weights $\vec{w} = (w_0, ..., w_n)$.
+2. for each epoch:
+     * Set $\Delta w_i = 0$
+     * For each set of training data ($x^k, y^k$), $k=1, \dots, N$:
+       * Calculate output $y^k$.
+       * Calculate weight update: $\Delta w_i^k = \Delta w_i^k + (y^k-\bar{y}^k)x_i^k$.
+     * Calculate the mean of all weight updates over the training data: $\Delta w_i = \frac{\alpha}{N}\sum_{k=1}^N \Delta w_i^k$.
+     * Update all weights $w_i = w_i + \Delta w_i$
 
-### Implementierung des Perzeptrons
-#### Perzeptron-Klasse
-Wir definieren zuerst eine Klasse `Perceptron`:
+
+### Implementation of the Perceptron
+#### Perceptron Class
+First we define a class `Perceptron`:
 ```{code-cell} ipython3
 class Perceptron():
     
-    # Konstruktor mit Defaultwerten
+    # Constructor with default values
     def __init__(self, alpha=0.01):
         self.alpha = alpha
     
-    # Training mit x (Matrix von Featurevektoren) und y (Labels)
+    # Training with x (features) and y (labels)
     def train(self, x, y, epochs):
         rnd = np.random.RandomState(42)
         n_samples = x.shape[0]
         print(f"Train on {n_samples} samples")
         
-        # Gewichte: 1 + dim(x) für den Bias
+        # Weights: 1 + dim(x) for the bias neuron
         self.w = rnd.normal(loc=0, scale=0.01, size=1 + x.shape[1]) 
     
-        # Speicher für Kosten (loss function) pro Epoche
+        # List for storing loss function in each epoch
         self.loss = [] 
         
-        # Speicher für Vorhersage pro Epoche
+        # List for storing prediction in each epoch
         self.prediction = [] 
 
-        # Speicher für binäre Genauigkeit pro Epoche
+        # List for storing binary accuracy in each epoch
         self.accuracy = [] 
 
-        # Epochen durchlaufen
+        # Loop over epochs
         for i in range(epochs):
-            z = self.net_input(x) # Netzinput für alle Trainingsdaten
-            y_hat = self.activation(z) # Aktivierung für alle Trainingsdaten
-            diff = y - y_hat # Fehlervektor für alle Trainingsdaten
+            z = self.net_input(x) # Network input for all training data
+            y_hat = self.activation(z) # Activation for all training data
+            diff = y - y_hat # Loss vector for all training data
             
-            # Update der Gewichte
+            # Weight update
             self.w[1:] += self.alpha * x.T.dot(diff)
             
-            # Update des Gewichts für das Bias-Neuron
+            # Weight update for bias neuron
             self.w[0] += self.alpha * diff.sum()
             
-            # Kosten für diese Epoche (SSE) berechnen und in Liste speichern
+            # Save SSE of loss for each epoch
             l = (diff**2).sum() / 2.0 
             self.loss.append(l)
             print(f"Epoch {i+1}/{epochs} - loss: {l:.4f}")
 
-            # Vorhersage für diese Epoche in Liste speichern
+            # Save prediction for each epoch
             prediction = self.predict(x)
             self.prediction.append(prediction)
 
-            # Genauigkeit für diese Epoche in Liste speichern
+            # Save binary accuracy for each epoch
             accuracy = self.measure_accuracy(y,self.predict(x))
             self.accuracy.append(accuracy)
         
         return self
     
-    # Aktivierungsfunktion: Identität
+    # Activation function
     def activation(self, z):
         return z
     
@@ -381,33 +385,34 @@ class Perceptron():
         return accuracy
 ```
 
-#### Lernen
-Das Lernen bzw. Training des Perzeptrons findet in der Funktion `train`, insbesondere in der Schleife über die Epochen (Zeilen 20 - 35) statt.
+#### Learning Process
+The learning or training of the perceptron takes place in the function 'train', in particular in the loop over the epochs (lines 20 - 35).
 
 ```
 for i in range(epochs):
-            z = self.net_input(x) # Netzinput für alle Trainingsdaten
-            y_hat = self.activation(z) # Aktivierung für alle Trainingsdaten
-            diff = y - y_hat # Fehlervektor für alle Trainingsdaten
+            z = self.net_input(x) # Network input for all training data
+            y_hat = self.activation(z) # Activation for all training data
+            diff = y - y_hat # Loss vector for all training data
             
-            # Update der Gewichte
+            # Weight update
             self.w[1:] += self.alpha * x.T.dot(diff)
             
-            # Update des Gewichts für das Bias-Neuron
+            # Weight update for bias neuron
             self.w[0] += self.alpha * diff.sum()
 ```
 
-#### Batch-Verarbeitung der Trainingsdaten
-Wir haben das Perzeptron so implementiert, dass die Matrix $x$ alle Merkmalsvektoren enthält. Dadurch erreichen wir, dass alle Trainingsdaten durchlaufen werden, bevor die Wichtung aktualisiert wird. 
-Die Merkmalsvektoren werden übereinander gestapelt und bilden so eine $N \times 3$ Inputmatrix. Dabei ist zu beachten, dass die erste Spalte der Matrix das Bias-Neuron darstellt, also nur Einsen enthält. Durch Matrixmultiplikation der $N \times 3$ Inputmatrix mit dem $3 \times 1$ Gewichtungsvektor erhalten wir einen $N \times 1$ Outputvektor, der alle Ausgaben für alle Trainingsbeispiele enthält.
 
-Dabei wird der Netzinput in der Funktion `net_input` berechnet:
+#### Batch processing of the training data
+We have implemented the perceptron in such a way that the matrix $x$ contains all feature vectors. This ensures that all training data is run through before the weights are updated. 
+The feature vectors are stacked on top of each other to form an $N \times 3$ input matrix. It should be noted that the first column of the matrix represents the bias neuron, i.e. contains only ones. By matrix multiplying the $N \times 3$ input matrix with the $3 \times 1$ weighting vector, we obtain an $N \times 1$ output vector that contains all outputs for all training examples.
+
+The net input is calculated in the `net_input` function:
 ```
 def net_input(self, x):
         return np.dot(x, self.w[1:]) + self.w[0] 
 ```
 
-Um uns ein besseres Verständnis zu verschaffen, stellen wir die Operationen bildlich dar.
+To give us a better understanding, we illustrate the operations.
 
 ```{figure} images/Training_01.png
 ---
@@ -417,9 +422,9 @@ align: center
 ---
 ```
 
-Die Inputvektoren sind eigentlich Zeilenvektoren und übereinander gestapelt.
+The input vectors are actually row vectors and stacked on top of each other.
 
-Dieses Bild ist jedoch nicht ganz korrekt. Tatsächlich wird das Bias-Neuron in der Implementierung anders behandelt, wie die folgende Abbildung zeigt:
+However, this picture is not entirely correct. In fact, the bias neuron is treated differently in the implementation, as the following figure shows:
 
 ```{figure} images/Training_02.png
 ---
@@ -429,18 +434,18 @@ align: center
 ---
 ```
 
-Dies entspricht in der Implementierung der folgenden Zeile:
+This corresponds to the following line in the implementation:
 ```
 np.dot(x, self.w[1:]) + self.w[0]
 ```
 
-#### Wichtungsaktualisierung
-Die Wichtungsaktualisierung
+#### Weight Update 
+The weight update
 \begin{align}
 \vec{w} &= \vec{w} + \Delta\vec{w}\\
-\Delta w_i &= -\alpha\frac{\partial J}{\partial w_i} = \frac{\alpha}{N}\sum_{k=1}^N \left[y^k - g(z^k) \right] x_i^k
+\Delta w_i &= -\alpha\frac{\partial L}{\partial w_i} = \frac{\alpha}{N}\sum_{k=1}^N \left[y^k - g(z^k) \right] x_i^k
 \end{align}
-ist auf folgende Weise implementiert.
+is implemented in the following way.
 
 ```{figure} images/Training_03.png
 ---
@@ -450,8 +455,8 @@ align: center
 ---
 ```
 
-### Datensatz
-Zur Veranschaulichung des Perzeptron-Modells können die Beispieldatensätze der `scikit-learn`-Bibliothek verwendet werden.
+### Data Set
+The sample data sets of the `scikit-learn` library can be used to illustrate the perceptron model.
 
 ```{code-cell} ipython3 
 :tags: [hide-cell]
@@ -484,11 +489,12 @@ data_wine.keys()
 np.shape(data_wine.data)
 ```
 
-Die Output-Daten werden in der Kategorie `target` gespeichert. Die Eingabedaten befinden sich in der Kategorie `data`. Als Input stehen folgende Merkmale (*features*) zur Verfügung:
+The output data is saved in the `target` category. The input data is located in the `data` category. The following features are available as input:
 ```{code-cell} ipython3
 data_wine.feature_names
 ```
-In unserem Anwendungsfall wollen wir zwei Merkmale verwenden, um ein binäres Klassifikationsproblem mit Hilfe des Perzeptron-Modells zu lösen. Daher analysieren wir den Datensatz, indem wir die drei Kategorien in Abhängigkeit von verschiedenen Merkmalen darstellen. Es zeigt sich, dass die beiden Merkmale "Alkohol" und "Flavonoide" zu einem linear separierbaren Datensatz zwischen den Kategorien "0" (dunkelblau) und "2" (gelb) führen. 
+
+In our example, we want to use two features to solve a binary classification problem using the perceptron model. Therefore, we analyze the dataset by plotting the three categories as a function of different features. It turns out that the two features "alcohol" and "flavonoids" lead to a linearly separable data set between the categories "0" (dark blue) and "2" (yellow). 
 
 ```{code-cell} ipython3
 plt.scatter(data_wine.data.T[0], data_wine.data.T[6], c=data_wine.target)
@@ -497,7 +503,7 @@ plt.ylabel(data_wine.feature_names[6])
 plt.show()
 ```
 
-Wir bereiten nun unseren Datensatz für das Training des Perzeptron-Modells vor. Wir beginnen mit den Output-Daten. 
+We now prepare our data set for training the perceptron model. We start with the output data. 
 
 ```{code-cell} ipython3
 y = np.concatenate((data_wine.target[:59], data_wine.target[130:]))
@@ -505,7 +511,7 @@ y = np.concatenate((data_wine.target[:59], data_wine.target[130:]))
 y = np.where(y == 2, 1, 0)
 ```
 
-In ähnlicher Weise bereiten wir die Input-Daten auf.
+Similarly, we prepare the input data.
 
 ```{code-cell} ipython3
 input_features = data_wine.data.T
@@ -513,7 +519,7 @@ input_features = input_features[[0,6]]
 x = np.concatenate((input_features.T[:59], input_features.T[130:]))
 ```
 
-Am Ende überprüfen wir noch einmal, ob die Daten richtig aufbereitet wurden.
+At the end, we check once again whether the data has been prepared correctly.
 
 ```{code-cell} ipython3
 plt.scatter(x.T[0][:59], x.T[1][:59], c='blue', label='Kategorie 0')
@@ -524,21 +530,22 @@ plt.legend(loc='upper left')
 plt.show()
 ```
 
-### Trainingsbeispiele
+### Training Examples
 
-Wir trainieren ein Modell mit einer Lernrate von $\alpha=0.01$ über eine Dauer von 20 Epochen.
+We train a model with a learning rate of $\alpha=0.01$ over a period of 20 epochs.
 ```{code-cell} ipython3
 model1 = Perceptron(alpha=0.01)
 model1.train(x, y, epochs=20)
 ```
 
-Anschließend trainieren wir ein weiteres Modell, mit einer Lernrate von $\alpha=0.0001$.
+
+We then train another model with a learning rate of $\alpha=0.0001$.
 ```{code-cell} ipython3
 model2 = Perceptron(alpha=0.0001)
 model2.train(x, y, epochs=20)
 ```
 
-Wir veranschaulichen die Fehlerfunktion (oben) und die Genauigkeit (unten) für das Training mit beiden Lernrate.
+We illustrate the loss function (top) and the accuracy (bottom) for training with both learning rates.
 ```{code-cell} ipython3
 :tags: [hide-output]
 
@@ -569,10 +576,11 @@ ax[1][1].set_title('Perzeptron, alpha=0.0001')
 plt.show()
 ```
 
-## Trainingsstrategien
 
-### Standardisieren
-Standardisieren der beiden Inputs:
+## Training strategies
+
+### Standardization
+Standardize the two inputs:
 
 ```{code-cell} ipython3
 x_st = np.copy(x)

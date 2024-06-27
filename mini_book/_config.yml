@@ -18,8 +18,10 @@ description: >-
 
 # Jupyter notebook settings
 execute:
-  execute_notebooks           : force
-  timeout                     : -1
+  execute_notebooks           : auto
+  timeout                     : 60
+  exclude_patterns            :
+    - 'pde_nn'
 
 # TOC settings
 number_toc_chapters           : false

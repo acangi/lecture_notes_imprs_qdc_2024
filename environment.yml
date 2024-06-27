@@ -1,6 +1,8 @@
 name: lectures_imprs
 channels:
   - default
+  - pytorch
+  - conda-forge
 dependencies:
   - python=3.12
   - ipykernel

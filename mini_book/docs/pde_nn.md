@@ -1,5 +1,6 @@
 ---
 jupytext:
+  formats: md:myst
   text_representation:
     extension: .md
     format_name: myst
@@ -7,12 +8,35 @@ kernelspec:
   display_name: Python 3
   language: python
   name: lectures_imprs
+mystnb:
+  execution_mode: 'off'
 ---
+
 <a href="https://colab.research.google.com/github/acangi/lecture_notes_imprs_qdc_2024/blob/main/mini_book/docs/notebooks/02_TD_Schrodinger.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ```{hint}
 Run the notebook in the colab environment.
 ```
+
+```{code-cell} ipython3
+:tags: [hide-cell]
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+import matplotlib as mpl
+from matplotlib.lines import Line2D
+import matplotlib.image as img
+import copy
+
+import ipywidgets as widgets
+from ipywidgets import interact
+
+import urllib.request as urllib2
+```
+
+
 # Solving differential equations with neural networks
 In this lecture we will learn how to solve differential equations using machine learning. More specifically, we will look into two ways how to leverage neural networks to find solutions of differential equations. 
 - The first method is a data-driven approach using feedforward neural networks.
@@ -164,13 +188,10 @@ test_x, test_y = get_data_set(x_dom, t_dom, delta_X, delta_T, omega, analytical_
 Here `delta_T` and `delta_X` are the grid spacing in our domain. Data will be generated on this grid. You cna move the slider to see how the probabilty density of the QHO evolves in time. Our system looks like this:
 
 ```{code-cell} ipython3
-:tags: [hide-output]
-
-import ipywidgets as widgets
-
 @interact(t=widgets.IntSlider(min=0, max=62, step=1, value=0))
 def interactive_viz_colour(t):
     tstr = str(t).zfill(2)
+    f = urllib2.urlopen("https://github.com/GDS-Education-Community-of-Practice/DSECOP/tree/main/Learning_the_Schrodinger_Equation/")
     fname = f"res/plots/waveform/psi_0_1/t_{tstr}.png"
     image = img.imread(fname)
     plt.figure(figsize=(8,6))
@@ -783,11 +804,11 @@ def get_analytical_solution_1_3(X,T, omega):
 
 You can explore the system here:
 ```{code-cell} ipython3
-:tags: [hide-output]
 
 @interact(t=widgets.IntSlider(min=0, max=62, step=1, value=0))
 def interactive_viz_colour(t):
     tstr = str(t).zfill(2)
+    f = urllib2.urlopen("https://github.com/GDS-Education-Community-of-Practice/DSECOP/tree/main/Learning_the_Schrodinger_Equation/")
     fname = f"res/plots/waveform/psi_1_3/t_{tstr}.png"
     image = img.imread(fname)
     plt.figure(figsize=(8,6))
